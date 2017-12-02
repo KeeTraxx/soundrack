@@ -85,6 +85,7 @@ export default {
       console.log('noteoff', ev)
 
       this.instrument[ev.note.number].gainNode.gain.linearRampToValueAtTime(0, this.$store.state.audioContext.currentTime + 0.3)
+      this.instrument[ev.note.number].source.stop(this.$store.state.audioContext.currentTime + 0.3)
       Vue.delete(this.activenotes, ev.note.name + ev.note.octave)
     },
     loadInstrument (instrumentName) {

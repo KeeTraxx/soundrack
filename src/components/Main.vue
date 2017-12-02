@@ -2,8 +2,10 @@
   <div class="rack">
     <master ref="master"></master>
     <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
-    <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
+    <sound-player :output="$store.state.mixer[0]"></sound-player>
+    <k-synth ref="soundplayer" :output="$store.state.mixer[0]"></k-synth>
     <midi-input @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></midi-input>
+    <virtual-keyboard @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></virtual-keyboard>
   </div>
 </template>
 
@@ -12,6 +14,8 @@ import Master from './Master'
 import MidiInput from './MidiInput'
 import SoundPlayer from './SoundPlayer'
 import Equalizer from './Equalizer'
+import KSynth from './KSynth'
+import VirtualKeyboard from './VirtualKeyboard'
 
 export default {
   name: 'Main',
@@ -26,7 +30,9 @@ export default {
     Master,
     MidiInput,
     SoundPlayer,
-    Equalizer
+    Equalizer,
+    KSynth,
+    VirtualKeyboard
   }
 }
 </script>
