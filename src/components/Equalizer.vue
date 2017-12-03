@@ -1,7 +1,7 @@
 <template>
   <div>
+    <canvas class="display" ref="canvas" width="760" height="140"></canvas>
     <h1>Equalizer</h1>
-    <canvas ref="canvas" width="320" height="100"></canvas>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
 
     let canvasCtx = this.$refs.canvas.getContext('2d')
 
-    canvasCtx.clearRect(0, 0, 320, 128)
+    canvasCtx.clearRect(0, 0, 760, 140)
     this.input.connect(this.analyser)
     this.analyser.connect(this.output)
     requestAnimationFrame(this.draw)
@@ -34,7 +34,7 @@ export default {
       let canvasCtx = this.$refs.canvas.getContext('2d')
       this.analyser.getByteFrequencyData(this.dataArray)
       canvasCtx.fillStyle = 'rgb(0, 0, 0)'
-      canvasCtx.fillRect(0, 0, 320, 128)
+      canvasCtx.fillRect(0, 0, 760, 140)
       let barWidth = (320 / this.dataArray.length) * 2.5
       let barHeight
       let x = 0
@@ -56,8 +56,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-canvas {
-  width: 480;
-  height: 360;
-}
 </style>

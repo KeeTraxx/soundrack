@@ -1,6 +1,5 @@
 <template>
   <div class="rack">
-    <master ref="master"></master>
     <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
     <sound-player :output="$store.state.mixer[0]"></sound-player>
     <k-synth ref="soundplayer" :output="$store.state.mixer[0]"></k-synth>
@@ -10,7 +9,6 @@
 </template>
 
 <script>
-import Master from './Master'
 import MidiInput from './MidiInput'
 import SoundPlayer from './SoundPlayer'
 import Equalizer from './Equalizer'
@@ -27,7 +25,6 @@ export default {
     // this.$store.dispatch('loadInstrument', 'acoustic_grand_piano')
   },
   components: {
-    Master,
     MidiInput,
     SoundPlayer,
     Equalizer,
@@ -43,10 +40,25 @@ export default {
 
 .rack > div {
   width: 960px;
-  margin: 50px 0;
-  padding: 24px;
-  border-radius: 0.8em;
-  background-image: linear-gradient(to bottom, #222, black);
+  border: 20px solid pink;
+  border-width: 28px 10px 10px 10px;
+  border-image-source: url('/static/img/gb-background.png');
+  border-image-slice: 28 164 86 86 fill;
+  border-image-width: auto;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+
+  margin: 24px 0;
+}
+
+.display {
+  border: 20px solid pink;
+  border-width: 23px 42px 22px 43px;
+  border-image-source: url('/static/img/gb-display.png');
+  border-image-slice: 41 156 39 60 fill;
+  border-image-width: auto;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
 }
 
 h1,
@@ -69,9 +81,11 @@ p {
   margin-bottom: 1em;
 }
 
-body {
+html, body {
+  height: 100%;
   font-family: "Audiowide", cursive;
-  color: green;
-  background: black;
+  color: #3a2292;
+  background-image: linear-gradient(to bottom, #121, #010); 
+  background-repeat: no-repeat;
 }
 </style>
