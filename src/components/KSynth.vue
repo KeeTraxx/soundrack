@@ -14,7 +14,7 @@
 
 <script>
 
-let oscillator
+let oscillators = []
 
 function midi2freq (d) {
   // Taken from https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
@@ -33,17 +33,20 @@ export default {
   },
   methods: {
     noteon (ev) {
+      if (oscillators[ev.note.number]) {
+        oscillators[ev.note.number].stop()
+      }
       let gainNode = this.$store.state.audioContext.createGain()
       gainNode.gain.value = ev.velocity
-      oscillator = this.$store.state.audioContext.createOscillator()
-      oscillator.type = this.type
-      oscillator.frequency.value = midi2freq(ev.note.number)
-      oscillator.connect(gainNode)
+      oscillators[ev.note.number] = this.$store.state.audioContext.createOscillator()
+      oscillators[ev.note.number].type = this.type
+      oscillators[ev.note.number].frequency.value = midi2freq(ev.note.number)
+      oscillators[ev.note.number].connect(gainNode)
       gainNode.connect(this.output)
-      oscillator.start()
+      oscillators[ev.note.number].start()
     },
     noteoff (ev) {
-      oscillator.stop()
+      oscillators[ev.note.number].stop()
     }
   }
 }

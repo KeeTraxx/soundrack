@@ -26,10 +26,12 @@ export default {
         try {
           if (ev.port.type === 'input') {
             ev.port.addListener('noteon', 'all', ev => {
+              console.log('noteon', ev)
               this.$emit(ev.type, ev)
             })
 
             ev.port.addListener('noteoff', 'all', ev => {
+              console.log('noteoff', ev)
               this.$emit(ev.type, ev)
             })
           }
