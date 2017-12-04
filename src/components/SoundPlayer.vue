@@ -58,7 +58,7 @@ export default {
     }
   },
   mounted () {
-    fetch('http://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/names.json')
+    fetch('https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/names.json')
       .then(res => res.json())
       .then(json => {
         this.availableInstruments = json
