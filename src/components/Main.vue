@@ -1,8 +1,8 @@
 <template>
   <div class="rack">
     <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
-    <sound-player :output="$store.state.mixer[0]"></sound-player>
-    <k-synth ref="soundplayer" :output="$store.state.mixer[0]"></k-synth>
+    <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
+    <k-synth :output="$store.state.mixer[0]"></k-synth>
     <midi-input @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></midi-input>
     <virtual-keyboard @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></virtual-keyboard>
   </div>
@@ -42,7 +42,7 @@ export default {
   width: 960px;
   border: 20px solid pink;
   border-width: 28px 10px 10px 10px;
-  border-image-source: url('/static/img/gb-background.png');
+  border-image-source: url('../assets/img/gb-background.png');
   border-image-slice: 28 164 86 86 fill;
   border-image-width: auto;
   border-image-outset: 0;
@@ -54,7 +54,7 @@ export default {
 .display {
   border: 20px solid pink;
   border-width: 23px 42px 22px 43px;
-  border-image-source: url('/static/img/gb-display.png');
+  border-image-source: url('../assets/img/gb-display.png');
   border-image-slice: 41 156 39 60 fill;
   border-image-width: auto;
   border-image-outset: 0;
@@ -88,4 +88,5 @@ html, body {
   background-image: linear-gradient(to bottom, #121, #010); 
   background-repeat: no-repeat;
 }
+
 </style>
