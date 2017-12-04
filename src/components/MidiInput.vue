@@ -50,7 +50,6 @@ export default {
                 this.selectedOutput.device[ev.type](ev)
               }
             })
-
           }
         } catch (err) {
           // Do nothing, bug on MidiJS

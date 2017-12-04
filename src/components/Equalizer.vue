@@ -6,7 +6,8 @@
 </template>
 
 <script>
-
+let colors = ['#1d2213', '#494f3e', '#626e4c']
+// colors = ['#f00', '#0f0', '#00f']
 export default {
   name: 'Equalizer',
   props: ['input', 'output'],
@@ -33,22 +34,28 @@ export default {
     draw () {
       let canvasCtx = this.$refs.canvas.getContext('2d')
       this.analyser.getByteFrequencyData(this.dataArray)
-      canvasCtx.fillStyle = 'rgb(0, 0, 0)'
+      canvasCtx.fillStyle = '#7b8c5a'
       canvasCtx.fillRect(0, 0, 760, 140)
-      let barWidth = (320 / this.dataArray.length) * 2.5
+      let barWidth = (760 / this.dataArray.length) * 1.5
       let barHeight
-      let x = 0
-      let c = 0
+      let x = 5
 
       for (var i = 0; i < this.dataArray.length; i++) {
         barHeight = this.dataArray[i] / 2
-        c = Math.min(100 + x, 255)
-        canvasCtx.fillStyle = 'rgb(50,' + c + ',50)'
-        canvasCtx.fillRect(x, 128 - barHeight, barWidth, barHeight)
+        for (var h = 0; h < barHeight; h += 8) {
+          let c = Math.min(2, h / 45 * 2)
+          canvasCtx.fillStyle = colors[~~c]
+          if (c === 2) {
+            canvasCtx.strokeStyle = colors[1]
+            canvasCtx.strokeRect(x, 130 - h, barWidth, 6)
+          } else {
+            canvasCtx.fillRect(x, 130 - h, barWidth, 6)
+          }
+        }
 
-        x += barWidth + 1
+        x += barWidth + 3
       }
-      setTimeout(() => requestAnimationFrame(this.draw), 1)
+      requestAnimationFrame(this.draw)
     }
   }
 }
@@ -56,4 +63,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
 </style>
