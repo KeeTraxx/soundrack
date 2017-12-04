@@ -1,10 +1,10 @@
 <template>
   <div class="rack">
     <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
+    <virtual-keyboard :outputs="outputs"></virtual-keyboard>
     <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
-    <k-synth :output="$store.state.mixer[0]"></k-synth>
-    <midi-input @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></midi-input>
-    <virtual-keyboard @noteon="$refs.soundplayer.noteon($event)" @noteoff="$refs.soundplayer.noteoff($event)"></virtual-keyboard>
+    <k-synth ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
+    <midi-input :outputs="outputs"></midi-input>
   </div>
 </template>
 
@@ -19,10 +19,21 @@ export default {
   name: 'Main',
   data () {
     return {
+      output: undefined,
+      outputs: []
     }
   },
-  created () {
-    // this.$store.dispatch('loadInstrument', 'acoustic_grand_piano')
+  mounted () {
+    this.output = this.$refs.soundplayer
+    this.outputs.push(
+      {
+        name: 'SoundPlayer',
+        device: this.$refs.soundplayer
+      },
+      {
+        name: 'KSynth',
+        device: this.$refs.ksynth
+      })
   },
   components: {
     MidiInput,
@@ -42,23 +53,43 @@ export default {
   width: 960px;
   border: 20px solid pink;
   border-width: 28px 10px 10px 10px;
-  border-image-source: url('../assets/img/gb-background.png');
+  border-image-source: url("../assets/img/gb-background.png");
   border-image-slice: 28 164 86 86 fill;
   border-image-width: auto;
   border-image-outset: 0;
   border-image-repeat: stretch;
 
   margin: 24px 0;
+  padding: 10px 10px;
 }
 
 .display {
+  color: #0f380f;
   border: 20px solid pink;
   border-width: 23px 42px 22px 43px;
-  border-image-source: url('../assets/img/gb-display.png');
+  border-image-source: url("../assets/img/gb-display.png");
   border-image-slice: 41 156 39 60 fill;
   border-image-width: auto;
   border-image-outset: 0;
   border-image-repeat: stretch;
+}
+
+.display li {
+  cursor: pointer;
+}
+.display li.active {
+  color: #7b8c5a;
+  background-color: #0f380f;
+}
+
+.minidisplay {
+  background-color: #7b8c5a;
+  color: #0f380f;
+  padding: 0.5em;
+  display: inline-block;
+  border: 3px inset grey;
+  border-radius: 0.3em;
+  margin: 0.3em;
 }
 
 h1,
@@ -81,12 +112,15 @@ p {
   margin-bottom: 1em;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: "Audiowide", cursive;
   color: #3a2292;
-  background-image: linear-gradient(to bottom, #121, #010); 
+  background-image: linear-gradient(to bottom, #121, #010);
+  background-color: #010;
   background-repeat: no-repeat;
-}
 
+  user-select: none;
+}
 </style>

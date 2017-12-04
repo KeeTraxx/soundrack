@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h1>MIDI Inputs</h1>
+    <ul class="display">
+      <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
+    </ul>
+    <h1>MidiInput</h1>
+    <p>Connect a Midi-Device to your browser and start jammin'!</p>
     <ul>
       <li v-for="input in inputs" v-bind:key="input.id">{{input.name}}</li>
     </ul>
@@ -12,13 +16,21 @@ import WebMidi from 'webmidi'
 
 export default {
   name: 'MidiInput',
-  props: ['output'],
+  props: ['outputs'],
   data () {
     return {
-      inputs: WebMidi.inputs
+      inputs: WebMidi.inputs,
+      selectedOutput: undefined
+    }
+  },
+  methods: {
+    selectOutput (output) {
+      console.log(output)
+      this.selectedOutput = output
     }
   },
   mounted () {
+    this.$watch('outputs', outs => { this.selectedOutput = outs[0] })
     WebMidi.enable(err => {
       if (err) return console.log(err)
       console.log('WebMidi enabled!')
@@ -26,14 +38,19 @@ export default {
         try {
           if (ev.port.type === 'input') {
             ev.port.addListener('noteon', 'all', ev => {
-              console.log('noteon', ev)
               this.$emit(ev.type, ev)
+              if (this.selectedOutput) {
+                this.selectedOutput.device[ev.type](ev)
+              }
             })
 
             ev.port.addListener('noteoff', 'all', ev => {
-              console.log('noteoff', ev)
               this.$emit(ev.type, ev)
+              if (this.selectedOutput) {
+                this.selectedOutput.device[ev.type](ev)
+              }
             })
+
           }
         } catch (err) {
           // Do nothing, bug on MidiJS

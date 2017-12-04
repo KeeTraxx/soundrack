@@ -46,7 +46,9 @@ export default {
       oscillators[ev.note.number].start()
     },
     noteoff (ev) {
-      oscillators[ev.note.number].stop()
+      if (oscillators[ev.note.number]) {
+        oscillators[ev.note.number].stop()
+      }
     }
   }
 }

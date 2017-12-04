@@ -81,9 +81,8 @@ export default {
       this.$set(this.activenotes, ev.note.name + ev.note.octave, ev)
     },
     noteoff (ev) {
-      if (!this.instrument[ev.note.number]) return
+      if (!this.instrument[ev.note.number].source) return
       console.log('noteoff', ev)
-
       this.instrument[ev.note.number].gainNode.gain.linearRampToValueAtTime(0, this.$store.state.audioContext.currentTime + 0.3)
       this.instrument[ev.note.number].source.stop(this.$store.state.audioContext.currentTime + 0.3)
       Vue.delete(this.activenotes, ev.note.name + ev.note.octave)
@@ -110,9 +109,6 @@ export default {
         this.loading = false
         console.log(instrumentName, 'loaded!')
       })
-    },
-    selectInstrument (index) {
-      console.log(index)
     }
   }
 }
