@@ -28,7 +28,7 @@
 import Vue from 'vue'
 import Promise from 'bluebird'
 
-var BASE_URL = 'http://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/'
+var BASE_URL = 'https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/'
 let notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
 
 function octave (n) {
