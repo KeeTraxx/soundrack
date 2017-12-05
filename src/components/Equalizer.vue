@@ -1,7 +1,9 @@
 <template>
   <div>
     <canvas class="display" ref="canvas" width="760" height="140"></canvas>
-    <h1>Equalizer</h1>
+    <span>
+      Equalizer
+    </span>
   </div>
 </template>
 
@@ -61,7 +63,8 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
+<style scoped>
+span {
+  vertical-align: top;
+}
 </style>

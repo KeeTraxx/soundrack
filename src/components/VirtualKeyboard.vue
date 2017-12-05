@@ -1,12 +1,18 @@
 <template>
   <div>
-    <ul class="display">
-      <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-    </ul>
-    <span>Octave:</span>
-    <button @click="octave > 0 && octave--">Down</button>
-    <div class="minidisplay">{{octave}}</div>
-    <button @click="octave < 10 && octave++">Up</button>
+    <div class="row">
+      <ul class="display">
+        <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
+      </ul>
+      <div class="row">
+        <div>Octave:</div>
+        <div class="row">
+          <button @click="octave > 0 && octave--">Down</button>          
+          <div class="minidisplay">{{octave}}</div>
+          <button @click="octave < 10 && octave++">Up</button>        
+        </div>
+      </div>
+    </div>
     <div class="keyboard">
       <div class="octave">
         <div class="keys">
@@ -197,6 +203,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.row {
+  display: inline-flex;
+  align-items: center;
+}
+
+.col {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .keyboard {
   width: 80%;
   display: flex;
