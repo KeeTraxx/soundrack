@@ -190,7 +190,6 @@ export default {
       }
     },
     up (ev, offset) {
-      //this.noteActive[this.octave * 12 + offset] = false
       this.$emit('noteoff', {
         channel: 1,
         note: {

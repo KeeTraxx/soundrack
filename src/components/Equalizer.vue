@@ -36,8 +36,7 @@ export default {
     draw () {
       let canvasCtx = this.$refs.canvas.getContext('2d')
       this.analyser.getByteFrequencyData(this.dataArray)
-      canvasCtx.fillStyle = '#7b8c5a'
-      canvasCtx.fillRect(0, 0, 760, 140)
+      canvasCtx.clearRect(0, 0, 760, 140)
       let barWidth = (760 / this.dataArray.length) * 1.5
       let barHeight
       let x = 5

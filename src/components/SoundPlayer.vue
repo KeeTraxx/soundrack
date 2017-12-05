@@ -2,19 +2,13 @@
   <div>
     <div class="row">
       <div class="display">
-        <div v-show="loading">Loading... please wait!</div>
-        <div v-show="!loading">
-          <ul class="instrument-list">
-            <li @click="loadInstrument(instrument)" v-for="instrument in availableInstruments" v-bind:key="instrument">
-              {{instrument}}
+        <div class="row fixed">
+          <div v-if="loading" style="flex-grow: 1;">Loading... please wait!</div>
+          <ul v-show="!loading" ref="instrumentList" class="instrument-list">
+            <li @click="loadInstrument(i)" :class="{active: instrument && instrument.name == i}" v-for="i in availableInstruments" :key="i">
+              {{i}}
             </li>
           </ul>
-        </div>
-      </div>
-      <div class="minidisplay">
-        <div>
-          <div>Current:</div>
-          <div>{{instrument ? instrument.name : 'N/A'}}</div>
         </div>
       </div>
     </div>
@@ -62,6 +56,15 @@ export default {
         this.availableInstruments = json
         this.loadInstrument('bright_acoustic_piano')
       })
+
+    this.$watch('instrument', i => {
+      if (!i) return
+      let index = this.availableInstruments.indexOf(i.name)
+      let item = this.$refs.instrumentList.children[index]
+
+      console.log(this.$refs.instrumentList)
+      this.$refs.instrumentList.scrollTop = item.offsetTop - this.$refs.instrumentList.offsetTop - 50
+    })
   },
   methods: {
     noteon (ev) {
@@ -119,7 +122,7 @@ export default {
 }
 
 .instrument-list {
-  max-height: 160px;
+  height: 160px;
   overflow: auto;
 }
 li {
