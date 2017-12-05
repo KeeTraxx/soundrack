@@ -203,16 +203,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.row {
-  display: inline-flex;
-  align-items: center;
-}
-
-.col {
-  display: inline-flex;
-  align-items: center;
-  flex-direction: column;
-}
 
 .keyboard {
   width: 80%;

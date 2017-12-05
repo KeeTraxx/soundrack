@@ -4,7 +4,7 @@
       <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
     </ul>
     <h1>MidiInput</h1>
-    <p>Connect a Midi-Device to your browser and start jammin'!</p>
+    <p>Connect a Midi-Device!</p>
     <ul>
       <li v-for="input in inputs" v-bind:key="input.id">{{input.name}}</li>
     </ul>

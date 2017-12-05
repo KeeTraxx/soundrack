@@ -1,10 +1,14 @@
 <template>
   <div class="rack">
-    <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
-    <virtual-keyboard :outputs="outputs"></virtual-keyboard>
-    <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
-    <k-synth ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
-    <midi-input :outputs="outputs"></midi-input>
+    <equalizer class="rack-item" :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
+    <div class="row">
+      <virtual-keyboard style="flex-grow: 1" class="rack-item" :outputs="outputs"></virtual-keyboard>
+      <midi-input class="rack-item" :outputs="outputs"></midi-input>
+    </div>
+    <div class="row">
+      <sound-player class="rack-item" ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
+      <k-synth  class="rack-item" ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
+    </div>
   </div>
 </template>
 
@@ -49,8 +53,24 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Audiowide);
 
+.row {
+  display: inline-flex;
+  align-items: center;
+}
+
+.col {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .rack > div {
   width: 960px;
+  margin: 5px 0;
+  padding: 10px 10px;
+}
+
+.rack-item {
   border: 20px solid pink;
   border-width: 28px 10px 10px 10px;
   border-image-source: url("../assets/img/gb-background.png");
@@ -58,9 +78,6 @@ export default {
   border-image-width: auto;
   border-image-outset: 0;
   border-image-repeat: stretch;
-
-  margin: 24px 0;
-  padding: 10px 10px;
 }
 
 .display {

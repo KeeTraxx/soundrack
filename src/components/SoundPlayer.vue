@@ -1,26 +1,24 @@
 <template>
   <div>
-    <h1>SoundPlayer</h1>
     <div class="row">
-      <div v-if="loading">Loading... please wait!</div>
-      <div v-if="!loading">
-        <ul class="instrument-list">
-          <li @click="loadInstrument(instrument)" v-for="instrument in availableInstruments" v-bind:key="instrument">
-            {{instrument}}
-          </li>
-        </ul>
+      <div class="display">
+        <div v-show="loading">Loading... please wait!</div>
+        <div v-show="!loading">
+          <ul class="instrument-list">
+            <li @click="loadInstrument(instrument)" v-for="instrument in availableInstruments" v-bind:key="instrument">
+              {{instrument}}
+            </li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h2>Current soundbank</h2>
-        <p>{{instrument ? instrument.name : 'N/A'}}</p>
-        <h2>Active notes</h2>
-        <ul>
-          <li v-for="(event, note) in activenotes" v-bind:key="note">
-            {{note}} (number: {{event.note.number}} velocity: {{event.rawVelocity}})
-          </li>
-        </ul>
+      <div class="minidisplay">
+        <div>
+          <div>Current:</div>
+          <div>{{instrument ? instrument.name : 'N/A'}}</div>
+        </div>
       </div>
     </div>
+    <h1>SoundPlayer</h1>
   </div>
 </template>
 
@@ -116,10 +114,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.row {
-  display: flex;
-}
-
 .row > div {
   padding: 10px;
 }

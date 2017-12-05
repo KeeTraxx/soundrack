@@ -1,32 +1,29 @@
 <template>
   <div>
-    <h1>KSynth</h1>
-    <div>
-      <select v-model="type">
-        <option>sine</option>
-        <option>square</option>
-        <option>sawtooth</option>
-        <option>triangle</option>
-      </select>
+    <div class="display">
+      <ul>
+        <li :class="{active: o == type}" v-for="o in oscillatorTypes" v-bind:key="o" @click="type = o">{{o}}</li>
+      </ul>
     </div>
+    <h1>KSynth</h1>
   </div>
 </template>
 
 <script>
-
-let oscillators = []
-
 function midi2freq (d) {
   // Taken from https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
   return Math.pow(2, (d - 69) / 12) * 440
 }
+
+let oscillators = []
 
 export default {
   name: 'KSynth',
   props: ['output'],
   data () {
     return {
-      type: 'sine'
+      type: 'sine',
+      oscillatorTypes: ['sine', 'square', 'sawtooth', 'triangle']
     }
   },
   created () {
