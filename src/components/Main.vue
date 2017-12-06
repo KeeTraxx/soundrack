@@ -4,6 +4,7 @@
     <div class="row">
       <virtual-keyboard style="flex-grow: 1" class="rack-item" :outputs="outputs"></virtual-keyboard>
       <midi-input class="rack-item" :outputs="outputs"></midi-input>
+      <midi-player class="rack-item" :outputs="outputs"></midi-player>
     </div>
     <div class="row">
       <sound-player class="rack-item" ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
@@ -18,6 +19,7 @@ import SoundPlayer from './SoundPlayer'
 import Equalizer from './Equalizer'
 import KSynth from './KSynth'
 import VirtualKeyboard from './VirtualKeyboard'
+import MidiPlayer from './MidiPlayer'
 
 export default {
   name: 'Main',
@@ -44,7 +46,8 @@ export default {
     SoundPlayer,
     Equalizer,
     KSynth,
-    VirtualKeyboard
+    VirtualKeyboard,
+    MidiPlayer
   }
 }
 </script>
