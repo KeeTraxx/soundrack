@@ -18,7 +18,7 @@ let mididata
 
 export default {
   name: 'MidiPlayer',
-  props: ['outputs'],
+  props: ['outputs', 'vkeyboard'],
   data () {
     return {
       selectedOutput: undefined,
@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     selectOutput (output) {
+      console.log(output)
       this.selectedOutput = output
     },
     play () {
@@ -97,13 +98,13 @@ export default {
 
     this.$on('noteon', ev => {
       if (this.selectedOutput) {
-        this.selectedOutput.device.noteon(ev)
+        this.selectedOutput.device.$emit('noteon', ev)
       }
     })
 
     this.$on('noteoff', ev => {
       if (this.selectedOutput) {
-        this.selectedOutput.device.noteoff(ev)
+        this.selectedOutput.device.$emit('noteoff', ev)
       }
     })
   }

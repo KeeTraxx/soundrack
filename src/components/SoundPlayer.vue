@@ -65,6 +65,9 @@ export default {
       console.log(this.$refs.instrumentList)
       this.$refs.instrumentList.scrollTop = item.offsetTop - this.$refs.instrumentList.offsetTop - 50
     })
+
+    this.$on('noteon', this.noteon)
+    this.$on('noteoff', this.noteoff)
   },
   methods: {
     noteon (ev) {

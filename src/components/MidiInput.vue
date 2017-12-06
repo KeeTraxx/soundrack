@@ -39,14 +39,14 @@ export default {
             ev.port.addListener('noteon', 'all', ev => {
               this.$emit(ev.type, ev)
               if (this.selectedOutput) {
-                this.selectedOutput.device[ev.type](ev)
+                this.selectedOutput.device.$emit(ev.type, ev)
               }
             })
 
             ev.port.addListener('noteoff', 'all', ev => {
               this.$emit(ev.type, ev)
               if (this.selectedOutput) {
-                this.selectedOutput.device[ev.type](ev)
+                this.selectedOutput.device.$emit(ev.type, ev)
               }
             })
           }

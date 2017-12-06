@@ -26,7 +26,9 @@ export default {
       oscillatorTypes: ['sine', 'square', 'sawtooth', 'triangle']
     }
   },
-  created () {
+  mounted () {
+    this.$on('noteon', this.noteon)
+    this.$on('noteoff', this.noteoff)
   },
   methods: {
     noteon (ev) {

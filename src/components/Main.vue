@@ -2,9 +2,9 @@
   <div class="rack">
     <equalizer class="rack-item" :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
     <div class="row">
-      <virtual-keyboard style="flex-grow: 1" class="rack-item" :outputs="outputs"></virtual-keyboard>
+      <virtual-keyboard ref="vkeyboard" style="flex-grow: 1" class="rack-item" :outputs="outputs.slice(1)"></virtual-keyboard>
       <midi-input class="rack-item" :outputs="outputs"></midi-input>
-      <midi-player class="rack-item" :outputs="outputs"></midi-player>
+      <midi-player class="rack-item" :outputs="outputs" :vkeyboard="{name: 'vkey', device: $refs.vkeyboard}"></midi-player>
     </div>
     <div class="row">
       <sound-player class="rack-item" ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
@@ -33,13 +33,18 @@ export default {
     this.output = this.$refs.soundplayer
     this.outputs.push(
       {
+        name: 'VirtualKeyboard',
+        device: this.$refs.vkeyboard
+      },
+      {
         name: 'SoundPlayer',
         device: this.$refs.soundplayer
       },
       {
         name: 'KSynth',
         device: this.$refs.ksynth
-      })
+      }
+      )
   },
   components: {
     MidiInput,
