@@ -241,6 +241,10 @@ export default {
   background-color: white;
   border: 1px solid grey;
   vertical-align: bottom;
+
+  -webkit-transition: background-color 600ms;
+  -moz-transition: background-color 600ms;
+  transition: background-color 600ms;
 }
 
 .octave > .keys > div.black {
@@ -264,7 +268,10 @@ div.black > .text-bottom {
 }
 
 .octave > .keys > div.active {
-  background-color: darkgrey;
+  background-color: yellow;
+  -webkit-transition: background-color 0s;
+  -moz-transition: background-color 0s;
+  transition: background-color 0s;
 }
 
 .octave .C {
