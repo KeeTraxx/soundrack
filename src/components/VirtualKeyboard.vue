@@ -157,6 +157,14 @@ export default {
 
     this.$on('noteon', ev => {
       this.noteActive[ev.note.number] = true
+      // scroll to view if outside
+      console.log(ev.note.octave)
+      if (ev.note.octave + 1 < this.octave) {
+        this.octave = ev.note.octave + 1
+      } else if (ev.note.octave + 2 > this.octave + 3) {
+        this.octave = ev.note.octave - 1
+      }
+
       if (this.selectedOutput) {
         this.selectedOutput.device.noteon(ev)
       }

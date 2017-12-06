@@ -53,14 +53,16 @@ export default {
     },
     emitEvent (index, event) {
       if (!this.playing) return
+      let octave
       switch (event.type) {
         case 9:
+          octave = (~~(event.data[0] / 12)) - 2
           this.$emit('noteon', {
             channel: event.channel,
             note: {
               name: '',
               number: event.data[0],
-              octave: 1
+              octave
             },
             rawVelocity: event.data[1],
             target: this.$refs.midiplayer,
@@ -69,12 +71,13 @@ export default {
           })
           break
         case 8:
+          octave = (~~(event.data[0] / 12)) - 2
           this.$emit('noteoff', {
             channel: event.channel,
             note: {
               name: '',
               number: event.data[0],
-              octave: 1
+              octave
             },
             rawVelocity: event.data[1],
             target: this.$refs.midiplayer,
