@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <ul class="display">
-      <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-    </ul>
-    <h1>Midi devices</h1>
-    <ul class="minidisplay">
-      <li v-for="input in inputs" v-bind:key="input.id">{{input.name}}</li>
-    </ul>
+  <div class="midiinput">
+    <front class="gameboy">
+      <ul class="display">
+        <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
+      </ul>
+      <h1>Midi devices</h1>
+      <ul class="minidisplay">
+        <li v-for="input in inputs" v-bind:key="input.id">{{input.name}}</li>
+      </ul>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 
@@ -59,7 +64,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
+<style scoped>
+.midiinput {
+  width: 25%;
+  height: 200px;
+}
 </style>

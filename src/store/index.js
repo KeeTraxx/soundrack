@@ -12,7 +12,8 @@ for (var i = 0; i < 16; i++) {
 
 let state = {
   audioContext,
-  mixer
+  mixer,
+  backview: false
 }
 
 export default new Vuex.Store({

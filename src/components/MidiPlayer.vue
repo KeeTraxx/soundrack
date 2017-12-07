@@ -1,12 +1,17 @@
 <template>
-  <div ref="midiplayer">
-    <ul class="display">
-      <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-    </ul>
-    <h1>Jingle Bells Player</h1>
-    <button @click="play()">Play</button>
-    <button @click="stop()">Stop</button>
-    <h2>(soon MIDI Player)</h2>
+  <div class="midiplayer">
+    <front class="gameboy" ref="midiplayer">
+      <ul class="display">
+        <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
+      </ul>
+      <h1>Jingle Bells Player</h1>
+      <button @click="play()">Play</button>
+      <button @click="stop()">Stop</button>
+      <h2>(soon MIDI Player)</h2>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 
@@ -114,6 +119,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.midiplayer {
+  width: 25%;
+  height: 200px;
+}
 </style>

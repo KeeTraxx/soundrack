@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <div class="display">
-      <ul>
-        <li :class="{active: o == type}" v-for="o in oscillatorTypes" v-bind:key="o" @click="type = o">{{o}}</li>
-      </ul>
-    </div>
-    <h1>KSynth</h1>
+  <div class="ksynth">
+    <front class="gameboy">
+      <div class="display">
+        <ul>
+          <li :class="{active: o == type}" v-for="o in oscillatorTypes" v-bind:key="o" @click="type = o">{{o}}</li>
+        </ul>
+      </div>
+      <h1>KSynth</h1>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 
 <script>
+import Front from './Front'
+import Back from './Back'
+
 function midi2freq (d) {
   // Taken from https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
   return Math.pow(2, (d - 69) / 12) * 440
@@ -19,6 +27,10 @@ let oscillators = []
 
 export default {
   name: 'KSynth',
+  components: {
+    Front,
+    Back
+  },
   props: ['output'],
   data () {
     return {
@@ -54,6 +66,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
+.ksynth {
+  width: 25%;
+  height: 200px;
+}
 
 </style>

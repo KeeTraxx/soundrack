@@ -1,18 +1,23 @@
 <template>
-  <div>
-    <div class="row">
-      <div class="display">
-        <div class="row fixed">
-          <div v-if="loading" style="flex-grow: 1;">Loading... please wait!</div>
-          <ul v-show="!loading" ref="instrumentList" class="instrument-list">
-            <li @click="loadInstrument(i)" :class="{active: instrument && instrument.name == i}" v-for="i in availableInstruments" :key="i">
-              {{i}}
-            </li>
-          </ul>
+  <div class="soundplayer">
+    <front class="gameboy">
+      <div class="row">
+        <div class="display">
+          <div class="row fixed">
+            <div v-if="loading" style="flex-grow: 1;">Loading... please wait!</div>
+            <ul v-show="!loading" ref="instrumentList" class="instrument-list">
+              <li @click="loadInstrument(i)" :class="{active: instrument && instrument.name == i}" v-for="i in availableInstruments" :key="i">
+                {{i}}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <h1>SoundPlayer</h1>
+      <h1>SoundPlayer</h1>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 
@@ -120,6 +125,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.soundplayer {
+  width: 50%;
+  height: 300px;
+}
+
 .row > div {
   padding: 10px;
 }

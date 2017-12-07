@@ -1,61 +1,66 @@
 <template>
-  <div>
-    <div class="row">
-      <ul class="display">
-        <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-      </ul>
+  <div class="virtualkeyboard">
+    <front class="gameboy">
       <div class="row">
-        <div>Octave:</div>
+        <ul class="display">
+          <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
+        </ul>
         <div class="row">
-          <button @click="octave > 0 && octave--">Down</button>
-          <div class="minidisplay">{{octave}}</div>
-          <button @click="octave < 10 && octave++">Up</button>
-        </div>
-        <p>Keyboard: 'C' = Note C</p>
-      </div>
-    </div>
-    <div class="keyboard">
-      <div v-for="i in [1,2,3]" :key="i" class="octave">
-        <div class="keys">
-          <div class="C" :class="{active: noteActive[octave*12+i*12+0]}" @mousedown="down($event, i*12+0)" @mouseup="up($event, i*12+0)" @mouseover="down($event, i*12+0)" @mouseout="up($event, i*12+0)">
-            <div class="text-bottom">C</div>
+          <div>Octave:</div>
+          <div class="row">
+            <button @click="octave > 0 && octave--">Down</button>
+            <div class="minidisplay">{{octave}}</div>
+            <button @click="octave < 10 && octave++">Up</button>
           </div>
-          <div class="Db black" :class="{active: noteActive[octave*12+i*12+1]}" @mousedown="down($event, i*12+1)" @mouseup="up($event, i*12+1)" @mouseover="down($event, i*12+1)" @mouseout="up($event, i*12+1)">
-            <div class="text-bottom">Db</div>
-          </div>
-          <div class="D" :class="{active: noteActive[octave*12+i*12+2]}" @mousedown="down($event, i*12+2)" @mouseup="up($event, i*12+2)" @mouseover="down($event, i*12+2)" @mouseout="up($event, i*12+2)">
-            <div class="text-bottom">D</div>
-          </div>
-          <div class="Eb black" :class="{active: noteActive[octave*12+i*12+3]}" @mousedown="down($event, i*12+3)" @mouseup="up($event, i*12+3)" @mouseover="down($event, i*12+3)" @mouseout="up($event, i*12+3)">
-            <div class="text-bottom">Eb</div>
-          </div>
-          <div class="E" :class="{active: noteActive[octave*12+i*12+4]}" @mousedown="down($event, i*12+4)" @mouseup="up($event, i*12+4)" @mouseover="down($event, i*12+4)" @mouseout="up($event, i*12+4)">
-            <div class="text-bottom">E</div>
-          </div>
-          <div class="F" :class="{active: noteActive[octave*12+i*12+5]}" @mousedown="down($event, i*12+5)" @mouseup="up($event, i*12+5)" @mouseover="down($event, i*12+5)" @mouseout="up($event, i*12+5)">
-            <div class="text-bottom">F</div>
-          </div>
-          <div class="Gb black" :class="{active: noteActive[octave*12+i*12+6]}" @mousedown="down($event, i*12+6)" @mouseup="up($event, i*12+6)" @mouseover="down($event, i*12+6)" @mouseout="up($event, i*12+6)">
-            <div class="text-bottom">Gb</div>
-          </div>
-          <div class="G" :class="{active: noteActive[octave*12+i*12+7]}" @mousedown="down($event, i*12+7)" @mouseup="up($event, i*12+7)" @mouseover="down($event, i*12+7)" @mouseout="up($event, i*12+7)">
-            <div class="text-bottom">G</div>
-          </div>
-          <div class="Ab black" :class="{active: noteActive[octave*12+i*12+8]}" @mousedown="down($event, i*12+8)" @mouseup="up($event, i*12+8)" @mouseover="down($event, i*12+8)" @mouseout="up($event, i*12+8)">
-            <div class="text-bottom">Ab</div>
-          </div>
-          <div class="A" :class="{active: noteActive[octave*12+i*12+9]}" @mousedown="down($event, i*12+9)" @mouseup="up($event, i*12+9)" @mouseover="down($event, i*12+9)" @mouseout="up($event, i*12+9)">
-            <div class="text-bottom">A</div>
-          </div>
-          <div class="Bb black" :class="{active: noteActive[octave*12+i*12+10]}" @mousedown="down($event, i*12+10)" @mouseup="up($event, i*12+10)" @mouseover="down($event, i*12+10)" @mouseout="up($event, i*12+10)">
-            <div class="text-bottom">Bb</div>
-          </div>
-          <div class="B" :class="{active: noteActive[octave*12+i*12+11]}" @mousedown="down($event, i*12+11)" @mouseup="up($event, i*12+11)" @mouseover="down($event, i*12+11)" @mouseout="up($event, i*12+11)">
-            <div class="text-bottom">B</div>
-          </div>
+          <p>Keyboard: 'C' = Note C</p>
         </div>
       </div>
-    </div>
+      <div class="keyboard">
+        <div v-for="i in [1,2,3]" :key="i" class="octave">
+          <div class="keys">
+            <div class="C" :class="{active: noteActive[octave*12+i*12+0]}" @mousedown="down($event, i*12+0)" @mouseup="up($event, i*12+0)" @mouseover="down($event, i*12+0)" @mouseout="up($event, i*12+0)">
+              <div class="text-bottom">C</div>
+            </div>
+            <div class="Db black" :class="{active: noteActive[octave*12+i*12+1]}" @mousedown="down($event, i*12+1)" @mouseup="up($event, i*12+1)" @mouseover="down($event, i*12+1)" @mouseout="up($event, i*12+1)">
+              <div class="text-bottom">Db</div>
+            </div>
+            <div class="D" :class="{active: noteActive[octave*12+i*12+2]}" @mousedown="down($event, i*12+2)" @mouseup="up($event, i*12+2)" @mouseover="down($event, i*12+2)" @mouseout="up($event, i*12+2)">
+              <div class="text-bottom">D</div>
+            </div>
+            <div class="Eb black" :class="{active: noteActive[octave*12+i*12+3]}" @mousedown="down($event, i*12+3)" @mouseup="up($event, i*12+3)" @mouseover="down($event, i*12+3)" @mouseout="up($event, i*12+3)">
+              <div class="text-bottom">Eb</div>
+            </div>
+            <div class="E" :class="{active: noteActive[octave*12+i*12+4]}" @mousedown="down($event, i*12+4)" @mouseup="up($event, i*12+4)" @mouseover="down($event, i*12+4)" @mouseout="up($event, i*12+4)">
+              <div class="text-bottom">E</div>
+            </div>
+            <div class="F" :class="{active: noteActive[octave*12+i*12+5]}" @mousedown="down($event, i*12+5)" @mouseup="up($event, i*12+5)" @mouseover="down($event, i*12+5)" @mouseout="up($event, i*12+5)">
+              <div class="text-bottom">F</div>
+            </div>
+            <div class="Gb black" :class="{active: noteActive[octave*12+i*12+6]}" @mousedown="down($event, i*12+6)" @mouseup="up($event, i*12+6)" @mouseover="down($event, i*12+6)" @mouseout="up($event, i*12+6)">
+              <div class="text-bottom">Gb</div>
+            </div>
+            <div class="G" :class="{active: noteActive[octave*12+i*12+7]}" @mousedown="down($event, i*12+7)" @mouseup="up($event, i*12+7)" @mouseover="down($event, i*12+7)" @mouseout="up($event, i*12+7)">
+              <div class="text-bottom">G</div>
+            </div>
+            <div class="Ab black" :class="{active: noteActive[octave*12+i*12+8]}" @mousedown="down($event, i*12+8)" @mouseup="up($event, i*12+8)" @mouseover="down($event, i*12+8)" @mouseout="up($event, i*12+8)">
+              <div class="text-bottom">Ab</div>
+            </div>
+            <div class="A" :class="{active: noteActive[octave*12+i*12+9]}" @mousedown="down($event, i*12+9)" @mouseup="up($event, i*12+9)" @mouseover="down($event, i*12+9)" @mouseout="up($event, i*12+9)">
+              <div class="text-bottom">A</div>
+            </div>
+            <div class="Bb black" :class="{active: noteActive[octave*12+i*12+10]}" @mousedown="down($event, i*12+10)" @mouseup="up($event, i*12+10)" @mouseover="down($event, i*12+10)" @mouseout="up($event, i*12+10)">
+              <div class="text-bottom">Bb</div>
+            </div>
+            <div class="B" :class="{active: noteActive[octave*12+i*12+11]}" @mousedown="down($event, i*12+11)" @mouseup="up($event, i*12+11)" @mouseover="down($event, i*12+11)" @mouseout="up($event, i*12+11)">
+              <div class="text-bottom">B</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 

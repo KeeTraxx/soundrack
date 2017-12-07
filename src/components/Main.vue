@@ -1,15 +1,11 @@
 <template>
-  <div class="rack">
-    <equalizer class="rack-item" :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
-    <div class="row">
-      <virtual-keyboard ref="vkeyboard" style="flex-grow: 1" class="rack-item" :outputs="outputs.slice(1)"></virtual-keyboard>
-      <midi-input class="rack-item" :outputs="outputs"></midi-input>
-      <midi-player class="rack-item" :outputs="outputs" :vkeyboard="{name: 'vkey', device: $refs.vkeyboard}"></midi-player>
-    </div>
-    <div class="row">
-      <sound-player class="rack-item" ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
-      <k-synth  class="rack-item" ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
-    </div>
+  <div class="rack row">
+    <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
+    <virtual-keyboard ref="vkeyboard" style="flex-grow: 1" class="rack-item" :outputs="outputs.slice(1)"></virtual-keyboard>
+    <midi-input :outputs="outputs"></midi-input>
+    <midi-player :outputs="outputs" :vkeyboard="{name: 'vkey', device: $refs.vkeyboard}"></midi-player>
+    <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
+    <k-synth ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
   </div>
 </template>
 
@@ -44,7 +40,7 @@ export default {
         name: 'KSynth',
         device: this.$refs.ksynth
       }
-      )
+    )
   },
   components: {
     MidiInput,
@@ -61,8 +57,22 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Audiowide);
 
+.connections {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .row {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -72,13 +82,11 @@ export default {
   flex-direction: column;
 }
 
-.rack > div {
+.rack {
   width: 960px;
-  margin: 5px 0;
-  padding: 10px 10px;
 }
 
-.rack-item {
+.gameboy {
   border: 20px solid pink;
   border-width: 28px 10px 10px 10px;
   border-image-source: url("../assets/img/gb-background.png");

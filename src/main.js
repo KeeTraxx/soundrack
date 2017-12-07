@@ -5,8 +5,12 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import store from './store'
+import Front from './components/Front'
+import Back from './components/Back'
 
 Vue.config.productionTip = false
+Vue.component('front', Front)
+Vue.component('back', Back)
 
 Vue.use(Vuex)
 

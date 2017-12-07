@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <canvas class="display" ref="canvas" width="760" height="140"></canvas>
-    <span>
-      Equalizer
-    </span>
+  <div class="equalizer">
+    <front class="gameboy">
+      <canvas class="display" ref="canvas" width="760" height="140"></canvas>
+      <span>
+      </span>
+    </front>
+    <back>
+      Back
+    </back>
   </div>
 </template>
 
@@ -63,6 +67,10 @@ export default {
 </script>
 
 <style scoped>
+.equalizer {
+  width: 100%;
+  height: 240px;
+}
 span {
   vertical-align: top;
 }
