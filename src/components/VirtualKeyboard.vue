@@ -222,6 +222,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.virtualkeyboard {
+  width: 50%;
+}
+
 .keyboard {
   width: 80%;
   display: flex;
