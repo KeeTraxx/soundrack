@@ -58,7 +58,7 @@
         </div>
       </div>
     </front>
-    <back>
+    <back has-inputs="true" has-outputs="true">
       back
     </back>
   </div>

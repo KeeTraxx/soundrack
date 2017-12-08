@@ -41,6 +41,13 @@ export default {
         device: this.$refs.ksynth
       }
     )
+
+    window.addEventListener('keydown', ev => {
+      if (ev.code === 'Tab') {
+        this.$store.state.backview = !this.$store.state.backview
+        ev.preventDefault()
+      }
+    })
   },
   components: {
     MidiInput,
@@ -55,8 +62,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-@import url(https://fonts.googleapis.com/css?family=Audiowide);
-
 .connections {
   position: absolute;
   top: 0;
@@ -96,6 +101,8 @@ export default {
 
 .back {
   background-color: lightgray;
+  display: flex;
+  flex-flow: column;
 }
 
 .gameboy {

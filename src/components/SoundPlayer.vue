@@ -16,7 +16,7 @@
       </div>
       <h1>SoundPlayer</h1>
     </front>
-    <back>
+    <back has-inputs="true" has-outputs="true">
       Back
     </back>
   </div>

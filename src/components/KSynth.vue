@@ -8,7 +8,7 @@
       </div>
       <h1>KSynth</h1>
     </front>
-    <back>
+    <back has-inputs="true" has-outputs="true">
       Back
     </back>
   </div>
