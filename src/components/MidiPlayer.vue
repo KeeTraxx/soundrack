@@ -122,6 +122,6 @@ export default {
 <style scoped>
 .midiplayer {
   width: 25%;
-  height: 200px;
+  height: 280px;
 }
 </style>

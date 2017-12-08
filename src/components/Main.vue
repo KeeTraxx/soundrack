@@ -109,6 +109,8 @@ export default {
 }
 
 .display {
+  width: 100%;
+  box-sizing: border-box;
   color: #0f380f;
   border: 20px solid pink;
   border-width: 23px 42px 22px 43px;
@@ -160,7 +162,8 @@ p {
 html,
 body {
   height: 100%;
-  font-family: "Audiowide", cursive;
+  font-family: "Consolas", cursive;
+  font-size: 13px;
   color: #3a2292;
   background-image: linear-gradient(to bottom, #121, #010);
   background-color: #010;

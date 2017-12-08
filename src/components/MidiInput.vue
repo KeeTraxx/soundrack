@@ -67,6 +67,6 @@ export default {
 <style scoped>
 .midiinput {
   width: 25%;
-  height: 200px;
+  height: 280px;
 }
 </style>

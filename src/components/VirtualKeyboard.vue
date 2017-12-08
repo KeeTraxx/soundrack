@@ -224,6 +224,7 @@ export default {
 <style scoped>
 .virtualkeyboard {
   width: 50%;
+  height: 280px;
 }
 
 .keyboard {

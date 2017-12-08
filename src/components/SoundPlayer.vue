@@ -10,6 +10,7 @@
                 {{i}}
               </li>
             </ul>
+            <p>{{msg}}</p>
           </div>
         </div>
       </div>
@@ -51,7 +52,8 @@ export default {
       instruments: {},
       instrument: undefined,
       loading: false,
-      activenotes: {}
+      activenotes: {},
+      msg: ''
     }
   },
   mounted () {
@@ -60,6 +62,9 @@ export default {
       .then(json => {
         this.availableInstruments = json
         this.loadInstrument('bright_acoustic_piano')
+      }).catch(err => {
+        console.log('errrerd', err)
+        this.msg = 'Failed to fetch instruments'
       })
 
     this.$watch('instrument', i => {
@@ -133,6 +138,7 @@ export default {
 .instrument-list {
   height: 160px;
   overflow: auto;
+  width: 100%;
 }
 li {
   margin-bottom: 0.2em;

@@ -3,6 +3,7 @@
     <front class="gameboy">
       <canvas class="display" ref="canvas" width="760" height="140"></canvas>
       <span>
+        Equalizer
       </span>
     </front>
     <back>
@@ -69,7 +70,7 @@ export default {
 <style scoped>
 .equalizer {
   width: 100%;
-  height: 240px;
+  height: 280px;
 }
 span {
   vertical-align: top;
