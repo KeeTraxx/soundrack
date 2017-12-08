@@ -73,7 +73,7 @@ export default {
 .row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: strech;
 }
 
 .col {
@@ -84,6 +84,18 @@ export default {
 
 .rack {
   width: 960px;
+}
+
+.rack > div {
+  display: flex;
+}
+
+.rack > div > div {
+  flex-grow: 1;
+}
+
+.back {
+  background-color: lightgray;
 }
 
 .gameboy {

@@ -130,10 +130,6 @@ export default {
   height: 300px;
 }
 
-.row > div {
-  padding: 10px;
-}
-
 .instrument-list {
   height: 160px;
   overflow: auto;

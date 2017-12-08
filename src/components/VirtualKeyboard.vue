@@ -59,7 +59,7 @@
       </div>
     </front>
     <back>
-      Back
+      back
     </back>
   </div>
 </template>
