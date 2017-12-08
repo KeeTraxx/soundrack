@@ -9,7 +9,7 @@
       <button @click="stop()">Stop</button>
       <h2>(soon MIDI Player)</h2>
     </front>
-    <back has-outputs="true">
+    <back has-event-outputs="true">
       Back
     </back>
   </div>

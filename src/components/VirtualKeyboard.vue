@@ -58,7 +58,7 @@
         </div>
       </div>
     </front>
-    <back has-inputs="true" has-outputs="true">
+    <back has-event-inputs="true" has-event-outputs="true">
       back
     </back>
   </div>

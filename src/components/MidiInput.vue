@@ -9,7 +9,7 @@
         <li v-for="input in inputs" v-bind:key="input.id">{{input.name}}</li>
       </ul>
     </front>
-    <back has-outputs="true">
+    <back has-event-outputs="true">
       Back
     </back>
   </div>

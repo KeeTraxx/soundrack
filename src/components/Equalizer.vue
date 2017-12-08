@@ -6,7 +6,7 @@
         Equalizer
       </span>
     </front>
-    <back has-inputs="true">
+    <back has-audio-inputs="true">
       Back
     </back>
   </div>
