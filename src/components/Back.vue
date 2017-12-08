@@ -2,16 +2,16 @@
   <div class="back" v-show="$store.state.backview">
     <slot></slot>
     <div class="row">
-      <div v-if="hasEventInputs" @mousedown="connectInput($event, $parent)" @mouseup="connectInput($event, $parent)">
+      <div v-if="hasEventInputs" @mousedown="connectEventInput($event, $parent)" @mouseup="connectEventInput($event, $parent)">
         EventInputs
       </div>
-      <div v-if="hasEventOutputs" @mousedown="connectOutput($event, $parent)" @mouseup="connectOutput($event, $parent)">
+      <div v-if="hasEventOutputs" @mousedown="connectEventOutput($event, $parent)" @mouseup="connectEventOutput($event, $parent)">
         EventOutputs
       </div>
-      <div v-if="hasAudioInputs" @mousedown="connectInput($event, $parent)" @mouseup="connectInput($event, $parent)">
+      <div v-if="hasAudioInputs" @mousedown="connectAudioInput($event, $parent)" @mouseup="connectAudioInput($event, $parent)">
         AudioInputs
       </div>
-      <div v-if="hasAudioOutputs" @mousedown="connectOutput($event, $parent)" @mouseup="connectOutput($event, $parent)">
+      <div v-if="hasAudioOutputs" @mousedown="connectAudioOutput($event, $parent)" @mouseup="connectAudioOutput($event, $parent)">
         AudioOutputs
       </div>
     </div>
@@ -20,34 +20,79 @@
 
 <script>
 
-var selectedInput
-var selectedOutput
+var selectedEventInput
+var selectedEventOutput
+var selectedAudioInput
+var selectedAudioOutput
 
 export default {
   name: 'Back',
   props: ['hasEventInputs', 'hasEventOutputs', 'hasAudioInputs', 'hasAudioOutputs'],
+  data () {
+    return {
+      outgoingAudioConnections: [],
+      incomingAudioConnections: [],
+      outgoingEventConnections: [],
+      incomingEventConnections: []
+    }
+  },
   methods: {
-    connectInput (ev, device) {
+    connectEventInput (ev, device) {
       console.log('connectInput', ev, device)
-      selectedInput = device
+      selectedEventInput = device
       if (ev.type === 'mouseup') {
-        this.connect(selectedInput, selectedOutput)
+        this.connectEvent(selectedEventInput, selectedEventOutput)
       }
     },
-    connectOutput (ev, device) {
+    connectEventOutput (ev, device) {
       console.log('connectOutput', ev, device)
-      selectedOutput = device
+      selectedEventOutput = device
 
       if (ev.type === 'mouseup') {
-        this.connect(selectedInput, selectedOutput)
+        this.connectEvent(selectedEventInput, selectedEventOutput)
       }
     },
-    connect (input, output) {
+    connectEvent (input, output) {
       if (input && output) {
         if (input !== output) {
           console.log('would connect', input, output)
-          selectedInput = undefined
-          selectedOutput = undefined
+          output.$on('noteon', ev => {
+            input.$emit('noteon', ev)
+          })
+
+          output.$on('noteoff', ev => {
+            input.$emit('noteoff', ev)
+          })
+
+          selectedEventInput = undefined
+          selectedEventOutput = undefined
+        } else {
+          console.log('not connecting an obvious loop', input, output)
+        }
+      }
+    },
+    connectAudioInput (ev, device) {
+      console.log('connectInput', ev, device)
+      selectedAudioInput = device
+      if (ev.type === 'mouseup') {
+        this.connectAudio(selectedAudioInput, selectedAudioOutput)
+      }
+    },
+    connectAudioOutput (ev, device) {
+      console.log('connectOutput', ev, device)
+      selectedAudioOutput = device
+
+      if (ev.type === 'mouseup') {
+        this.connectAudio(selectedAudioInput, selectedAudioOutput)
+      }
+    },
+    connectAudio (input, output) {
+      if (input && output) {
+        if (input !== output) {
+          console.log('would connect', input, output)
+          output.outputNode.connect(input.inputNode)
+          selectedAudioInput = undefined
+          selectedAudioOutput = undefined
         } else {
           console.log('not connecting an obvious loop', input, output)
         }

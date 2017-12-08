@@ -15,8 +15,9 @@
         </div>
       </div>
       <h1>SoundPlayer</h1>
+      <button @click="active = !active">{{active ? 'ON' : 'OFF'}}</button>
     </front>
-    <back has-event-inputs="true" has-audio-outputs="true">
+    <back ref="back" has-event-inputs="true" has-audio-outputs="true">
       Back
     </back>
   </div>
@@ -53,7 +54,9 @@ export default {
       instrument: undefined,
       loading: false,
       activenotes: {},
-      msg: ''
+      msg: '',
+      outputNode: this.$store.state.audioContext.createGain(),
+      active: true
     }
   },
   mounted () {
@@ -81,6 +84,8 @@ export default {
   },
   methods: {
     noteon (ev) {
+      if (!this.active) return
+      
       if (!this.instrument[ev.note.number]) return
       console.log('noteon', ev)
       let source = this.$store.state.audioContext.createBufferSource()
@@ -88,7 +93,7 @@ export default {
       gainNode.gain.value = ev.velocity
       source.buffer = this.instrument[ev.note.number].buffer
       source.connect(gainNode)
-      gainNode.connect(this.output)
+      gainNode.connect(this.outputNode)
       source.start()
       this.instrument[ev.note.number].source = source
       this.instrument[ev.note.number].gainNode = gainNode

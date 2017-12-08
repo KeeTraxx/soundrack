@@ -2,9 +2,6 @@
   <div class="virtualkeyboard">
     <front class="gameboy">
       <div class="row">
-        <ul class="display">
-          <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-        </ul>
         <div class="row">
           <div>Octave:</div>
           <div class="row">
@@ -116,16 +113,13 @@ function key2offset (ev) {
 
 export default {
   name: 'VirtualKeyboard',
-  props: ['outputs'],
   data () {
     return {
       octave: 4,
-      selectedOutput: undefined,
       noteActive: noteActive
     }
   },
   mounted () {
-    this.$watch('outputs', outs => { this.selectedOutput = outs[0] })
     window.addEventListener('keydown', (ev) => {
       let offset = key2offset(ev)
       if (!offset) return
@@ -163,23 +157,16 @@ export default {
     this.$on('noteon', ev => {
       this.noteActive[ev.note.number] = true
       // scroll to view if outside
-      console.log(ev.note.octave)
       if (ev.note.octave + 1 < this.octave) {
         this.octave = ev.note.octave + 1
       } else if (ev.note.octave + 2 > this.octave + 3) {
         this.octave = ev.note.octave - 1
       }
 
-      if (this.selectedOutput) {
-        this.selectedOutput.device.noteon(ev)
-      }
     })
 
     this.$on('noteoff', ev => {
       this.noteActive[ev.note.number] = false
-      if (this.selectedOutput) {
-        this.selectedOutput.device.noteoff(ev)
-      }
     })
   },
   methods: {

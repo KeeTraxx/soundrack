@@ -1,9 +1,12 @@
 <template>
   <div class="rack row">
-    <equalizer :input="$store.state.mixer[0]" :output="$store.state.audioContext.destination"></equalizer>
+    <div class="overlay">
+      <cables></cables>
+    </div>
+    <equalizer ref="equalizer" :output="$store.state.audioContext.destination"></equalizer>
     <virtual-keyboard ref="vkeyboard" style="flex-grow: 1" class="rack-item" :outputs="outputs.slice(1)"></virtual-keyboard>
-    <midi-input :outputs="outputs"></midi-input>
-    <midi-player :outputs="outputs" :vkeyboard="{name: 'vkey', device: $refs.vkeyboard}"></midi-player>
+    <midi-input ref="midiinput" :outputs="outputs"></midi-input>
+    <midi-player ref="midiplayer" :outputs="outputs" :vkeyboard="{name: 'vkey', device: $refs.vkeyboard}"></midi-player>
     <sound-player ref="soundplayer" :output="$store.state.mixer[0]"></sound-player>
     <k-synth ref="ksynth" :output="$store.state.mixer[0]"></k-synth>
   </div>
@@ -16,6 +19,7 @@ import Equalizer from './Equalizer'
 import KSynth from './KSynth'
 import VirtualKeyboard from './VirtualKeyboard'
 import MidiPlayer from './MidiPlayer'
+import Cables from './Cables'
 
 export default {
   name: 'Main',
@@ -48,6 +52,16 @@ export default {
         ev.preventDefault()
       }
     })
+
+    console.log('Initial cables')
+    this.$refs.soundplayer.$refs.back.connectAudio(this.$refs.equalizer, this.$refs.soundplayer)
+    this.$refs.ksynth.$refs.back.connectAudio(this.$refs.equalizer, this.$refs.ksynth)
+
+    this.$refs.midiinput.$refs.back.connectEvent(this.$refs.ksynth, this.$refs.vkeyboard)
+    this.$refs.midiinput.$refs.back.connectEvent(this.$refs.soundplayer, this.$refs.vkeyboard)
+
+    this.$refs.midiplayer.$refs.back.connectEvent(this.$refs.vkeyboard, this.$refs.midiplayer)
+    this.$refs.midiplayer.$refs.back.connectEvent(this.$refs.vkeyboard, this.$refs.miniinput)
   },
   components: {
     MidiInput,
@@ -55,12 +69,18 @@ export default {
     Equalizer,
     KSynth,
     VirtualKeyboard,
-    MidiPlayer
+    MidiPlayer,
+    Cables
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.overlay {
+  position: relative;
+}
+</style>
+
 <style>
 .connections {
   position: absolute;

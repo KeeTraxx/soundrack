@@ -7,8 +7,9 @@
         </ul>
       </div>
       <h1>KSynth</h1>
+      <button @click="active = !active">{{active ? 'ON' : 'OFF'}}</button>
     </front>
-    <back has-event-inputs="true" has-audio-outputs="true">
+    <back ref="back" has-event-inputs="true" has-audio-outputs="true">
       Back
     </back>
   </div>
@@ -35,7 +36,9 @@ export default {
   data () {
     return {
       type: 'sine',
-      oscillatorTypes: ['sine', 'square', 'sawtooth', 'triangle']
+      oscillatorTypes: ['sine', 'square', 'sawtooth', 'triangle'],
+      outputNode: this.$store.state.audioContext.createGain(),
+      active: false
     }
   },
   mounted () {
@@ -44,16 +47,18 @@ export default {
   },
   methods: {
     noteon (ev) {
+      if (!this.active) return
+
       if (oscillators[ev.note.number]) {
         oscillators[ev.note.number].stop()
       }
       let gainNode = this.$store.state.audioContext.createGain()
-      gainNode.gain.value = ev.velocity
+      gainNode.gain.value = ev.velocity * 0.5
       oscillators[ev.note.number] = this.$store.state.audioContext.createOscillator()
       oscillators[ev.note.number].type = this.type
       oscillators[ev.note.number].frequency.value = midi2freq(ev.note.number)
       oscillators[ev.note.number].connect(gainNode)
-      gainNode.connect(this.output)
+      gainNode.connect(this.outputNode)
       oscillators[ev.note.number].start()
     },
     noteoff (ev) {
@@ -71,5 +76,4 @@ export default {
   width: 25%;
   height: 200px;
 }
-
 </style>

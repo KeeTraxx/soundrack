@@ -1,15 +1,12 @@
 <template>
   <div class="midiplayer">
     <front class="gameboy" ref="midiplayer">
-      <ul class="display">
-        <li v-for="(output, i) in outputs" :class="{active: output == selectedOutput}" :key="i" @click="selectOutput(output)">{{output.name}}</li>
-      </ul>
       <h1>Jingle Bells Player</h1>
       <button @click="play()">Play</button>
       <button @click="stop()">Stop</button>
       <h2>(soon MIDI Player)</h2>
     </front>
-    <back has-event-outputs="true">
+    <back ref="back" has-event-outputs="true">
       Back
     </back>
   </div>
@@ -23,7 +20,7 @@ let mididata
 
 export default {
   name: 'MidiPlayer',
-  props: ['outputs', 'vkeyboard'],
+  props: ['vkeyboard'],
   data () {
     return {
       selectedOutput: undefined,

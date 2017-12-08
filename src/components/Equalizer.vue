@@ -21,7 +21,8 @@ export default {
   data () {
     return {
       analyser: undefined,
-      dataArray: []
+      dataArray: [],
+      inputNode: this.$store.state.audioContext.createGain()
     }
   },
   mounted () {
@@ -33,7 +34,11 @@ export default {
     let canvasCtx = this.$refs.canvas.getContext('2d')
 
     canvasCtx.clearRect(0, 0, 760, 140)
-    this.input.connect(this.analyser)
+    // deprecated
+    //  this.input.connect(this.analyser)
+
+    // new
+    this.inputNode.connect(this.analyser)
     this.analyser.connect(this.output)
     requestAnimationFrame(this.draw)
   },
