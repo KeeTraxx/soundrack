@@ -61,7 +61,7 @@ export default {
     this.$refs.midiinput.$refs.back.connectEvent(this.$refs.soundplayer, this.$refs.vkeyboard)
 
     this.$refs.midiplayer.$refs.back.connectEvent(this.$refs.vkeyboard, this.$refs.midiplayer)
-    this.$refs.midiplayer.$refs.back.connectEvent(this.$refs.vkeyboard, this.$refs.miniinput)
+    this.$refs.midiplayer.$refs.back.connectEvent(this.$refs.vkeyboard, this.$refs.midiinput)
   },
   components: {
     MidiInput,
